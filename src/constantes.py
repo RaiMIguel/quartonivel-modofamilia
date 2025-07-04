@@ -14,3 +14,4 @@ ROWS = ESCALA_ALTURA // TILE_SIZE
 CAMINHO_PASTA = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets")
 CAMINHO_CASA = os.path.join(CAMINHO_PASTA, "mapaCasa.png")
 CAMINHO_QUINTAL = os.path.join(CAMINHO_PASTA, "mapaQuintal.png")
+CAMINHO_MENU = os.path.join(CAMINHO_PASTA,"MenuPrincipal.png")
