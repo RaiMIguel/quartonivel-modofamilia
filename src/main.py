@@ -1,5 +1,5 @@
 import pygame
-import pygame
+
 
 from constantes import ESCALA_LARGURA, ESCALA_ALTURA, TILE_SIZE
 from mapa import carregar_casa, carregar_quintal, carregar_Menu
@@ -27,36 +27,38 @@ ultima_posicao_fixa = (personagem_x, personagem_y)
 
 relogio = pygame.time.Clock()
 rodando = True
+Iniciar = Exibir_Menu(tela,menu_img)
 
-while rodando:
-    for evento in pygame.event.get():
-        if evento.type == pygame.QUIT:
-            rodando = False
+if Iniciar == "Jogar":
+    while rodando:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                rodando = False
 
-    teclas = pygame.key.get_pressed()
-    nova_posicao, nova_direcao = mover_personagem(teclas, (personagem_x, personagem_y), mapa_colisao)
+        teclas = pygame.key.get_pressed()
+        nova_posicao, nova_direcao = mover_personagem(teclas, (personagem_x, personagem_y), mapa_colisao)
 
-    # Atualiza posição
-    if nova_posicao != (personagem_x, personagem_y):
-        ultima_posicao_fixa = nova_posicao
-    personagem_x, personagem_y = nova_posicao
+        # Atualiza posição
+        if nova_posicao != (personagem_x, personagem_y):
+            ultima_posicao_fixa = nova_posicao
+        personagem_x, personagem_y = nova_posicao
 
-    # Atualiza direção só se nova_direcao não for None
-    if nova_direcao is not None:
-        direcao_personagem = nova_direcao
+        # Atualiza direção só se nova_direcao não for None
+        if nova_direcao is not None:
+            direcao_personagem = nova_direcao
 
-    # Desenha fundo
-    tela.blit(casa_img, (0, 0))
+        # Desenha fundo
+        tela.blit(casa_img, (0, 0))
 
-    # Desenha personagem
-    sprite = sprites[direcao_personagem]
-    largura_pers = sprite.get_width()
-    altura_pers = sprite.get_height()
-    pos_x = personagem_x * TILE_SIZE + (TILE_SIZE - largura_pers) // 2
-    pos_y = personagem_y * TILE_SIZE + (TILE_SIZE - altura_pers) // 2
-    tela.blit(sprite, (pos_x, pos_y))
+        # Desenha personagem
+        sprite = sprites[direcao_personagem]
+        largura_pers = sprite.get_width()
+        altura_pers = sprite.get_height()
+        pos_x = personagem_x * TILE_SIZE + (TILE_SIZE - largura_pers) // 2
+        pos_y = personagem_y * TILE_SIZE + (TILE_SIZE - altura_pers) // 2
+        tela.blit(sprite, (pos_x, pos_y))
 
-    pygame.display.update()
-    relogio.tick(15)
-
-pygame.quit()
+        pygame.display.update()
+        relogio.tick(15)
+else:
+    pygame.quit()
