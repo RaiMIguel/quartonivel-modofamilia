@@ -13,7 +13,6 @@ pygame.display.set_caption("Quarto Nível - Modo Família")
 
 
 menu_img = carregar_Menu()
-Exibir_Menu(tela,menu_img)
 casa_img = carregar_casa()
 sprites = carregar_sprites()
 
@@ -27,8 +26,9 @@ ultima_posicao_fixa = (personagem_x, personagem_y)
 
 relogio = pygame.time.Clock()
 rodando = True
+# constante iniciar Para começar o Jogo
 Iniciar = Exibir_Menu(tela,menu_img)
-
+#Looping Principal agora depende da Opção do Menu
 if Iniciar == "Jogar":
     while rodando:
         for evento in pygame.event.get():
