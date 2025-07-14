@@ -25,6 +25,9 @@ ultima_posicao_fixa = (personagem_x, personagem_y)
 relogio = pygame.time.Clock()
 rodando = True
 
+# constante iniciar Para começar o Jogo
+Iniciar = Exibir_Menu(tela,menu_img)
+#Looping Principal agora depende da Opção do Menu
 while rodando:
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
