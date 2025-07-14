@@ -23,3 +23,20 @@ def Exibir_Menu(tela,menu_img):
                 for botao in botoes:
                       if botao["rect"].collidepoint(evento.pos):
                         return botao["texto"]  # Retorna a opção escolhida
+                      
+def desenhar_pontuacao(tela, Pontuacao, posicao=(50, 50)):
+
+#Tamanho e Cor
+    Largura_Contador = 200
+    Altura_Caixa = 80
+    cor_cinza_transparente = (100, 100, 100, 180) 
+#Fundo Contador
+    caixa = pygame.Surface((Largura_Contador,Altura_Caixa),pygame.SRCALPHA)
+    caixa.fill(cor_cinza_transparente)
+    tela.blit(caixa,posicao)
+#Texto Posição e Fonte
+    Fonte = pygame.font.SysFont("arial",36)
+    texto = Fonte.render(f"Pontuação:{Pontuacao}",True,(255,255,255))
+    texto_x = posicao[0]+10
+    texto_y = posicao[1]+20
+    tela.blit(texto,(texto_x,texto_y))
