@@ -18,7 +18,7 @@ def carregar_sprites():
     
     return sprites
 
-def mover_personagem(teclas, posicao, mapa_colisao):
+def mover_personagem(teclas, posicao, mapa_do_jogo):
     x, y = posicao
     nova_x, nova_y = x, y
     direcao = None
@@ -40,10 +40,8 @@ def mover_personagem(teclas, posicao, mapa_colisao):
         # Nenhuma tecla pressionada: posição e direção permanecem iguais
         return (x, y), None
 
-    # Checa colisão e retorna nova posição/direção válida
-    if 0 <= nova_x < len(mapa_colisao[0]) and 0 <= nova_y < len(mapa_colisao):
-        if mapa_colisao[nova_y][nova_x] == 1:
-            return (nova_x, nova_y), direcao
-
-    # Movimento inválido (colisão), permanece na posição atual
-    return (x, y), None
+    if mapa_do_jogo.is_tile_passable(nova_x, nova_y):
+        return (nova_x, nova_y), direcao
+    else:
+        # Movimento inválido (colisão ou fora dos limites), permanece na posição atual
+        return (x, y), None
