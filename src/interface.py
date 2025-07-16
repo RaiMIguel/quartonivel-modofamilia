@@ -34,7 +34,7 @@ def desenhar_pontuacao(tela, Pontuacao, posicao=(50, 50)):
     cor_cinza_transparente = (100, 100, 100, 180) 
 #Fundo Contador
     caixa = pygame.Surface((Largura_Contador,Altura_Caixa),pygame.SRCALPHA)
-    caixa.fill(cor_cinza_transparente)
+#    caixa.fill(cor_cinza_transparente)
     tela.blit(caixa,posicao)
 #Texto Posição e Fonte
     Fonte = pygame.font.SysFont("arial",36)
