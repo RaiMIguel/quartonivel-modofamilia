@@ -18,5 +18,4 @@ CAMINHO_QUINTAL = os.path.join(CAMINHO_PASTA, "mapaQuintal.png")
 
 CAMINHO_MENU = os.path.join(CAMINHO_PASTA,"MenuPrincipal.png")
 
-# === Pontuaçao ===
-Pontuacao = 0
+
