@@ -96,10 +96,30 @@ class Mapa:
             self.areas_livres = []
             self.areas_interativas = {}
 
-            # Todo o quintal é livre (passável) por enquanto
-            self.areas_livres += [(x, y) for x in range(0, COLS) for y in range(0, ROWS)]
-            # Definindo a nova "porta de saída" do quintal
-            self.areas_interativas["porta_quintal_saida"] = [(x, y) for x in range(39, 42) for y in range(7, 11)]
+            self.areas_livres += [(x, y) for y in range(0, 21) for x in range(0, 39)] # quital
+            self.areas_livres += [(x, y) for y in range(7, 9) for x in range(39, 40)] # porta quital
+
+            self.areas_interativas["porta_quintal_saida"] = [(x, y) for x in range(39, 40) for y in range(7, 9)]
+            self.areas_interativas["horta"] = [(x, y) for x in range(17, 39) for y in range(0, 2)] 
+            self.areas_interativas["pets"] = [(x, y) for x in range(2, 8) for y in range(8,10)] 
+            self.areas_interativas["carro_um"] = [(x, y) for x in range(7, 16) for y in range(16, 19)] 
+            self.areas_interativas["carro_dois"] = [(x, y) for x in range(24, 33) for y in range(16, 19)] 
+
+            temp_passable_set = set(self.areas_livres)
+            for tile in self.areas_interativas["horta"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+            for tile in self.areas_interativas["pets"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+            for tile in self.areas_interativas["carro_um"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+            for tile in self.areas_interativas["carro_dois"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+
+            self.areas_livres = list(temp_passable_set)
 
         elif tipo_mapa == "menu":
             self.background_img = self._carregar_imagem_interna(CAMINHO_MENU)
@@ -129,7 +149,7 @@ class Mapa:
             return False
         target_tiles = self.areas_interativas[area_name]
         for tx, ty in target_tiles:
-            if abs(tx - player_tile_x) <= radius and abs <= radius:
+            if abs(tx - player_tile_x) <= radius and abs(ty - player_tile_y) <= radius:
                 return True
         return False
 

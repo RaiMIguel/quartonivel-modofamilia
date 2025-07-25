@@ -73,7 +73,7 @@ if Iniciar == "Jogar":
             ultima_posicao_fixa = nova_posicao
         personagem_x, personagem_y = nova_posicao
         #Raí: Essa foi a função que usei para descobri a cordenada exata de cada ponto do mapa!
-        #print(f"Posição atual: ({personagem_x}, {personagem_y}) | Mapa: {game_map.mapa_atual}")
+        print(f"Posição atual: ({personagem_x}, {personagem_y}) | Mapa: {game_map.mapa_atual}")
 
         if nova_direcao is not None:
             direcao_personagem = nova_direcao
@@ -93,7 +93,7 @@ if Iniciar == "Jogar":
         # Lógica de Transição: Quintal para Casa
         # Tentei usar um elif para não abrir outro if, mas deu erro e o jeito foi crirar as duas lógicas em ifs diferentes.
         PORTA_QUINTAL_CASA_X_MIN, PORTA_QUINTAL_CASA_X_MAX = 39, 40
-        PORTA_QUINTAL_CASA_Y_MIN, PORTA_QUINTAL_CASA_Y_MAX = 8, 15
+        PORTA_QUINTAL_CASA_Y_MIN, PORTA_QUINTAL_CASA_Y_MAX = 7, 9
         
         ENTRADA_CASA_X, ENTRADA_CASA_Y = 1, 8
 
