@@ -73,7 +73,7 @@ if Iniciar == "Jogar":
             ultima_posicao_fixa = nova_posicao
         personagem_x, personagem_y = nova_posicao
         #Raí: Essa foi a função que usei para descobri a cordenada exata de cada ponto do mapa!
-        print(f"Posição atual: ({personagem_x}, {personagem_y}) | Mapa: {game_map.mapa_atual}")
+        #print(f"Posição atual: ({personagem_x}, {personagem_y}) | Mapa: {game_map.mapa_atual}")
 
         if nova_direcao is not None:
             direcao_personagem = nova_direcao
