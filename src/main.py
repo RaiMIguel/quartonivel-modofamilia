@@ -2,7 +2,7 @@ import pygame
 import sys
 
 from constantes import ESCALA_LARGURA, ESCALA_ALTURA, TILE_SIZE
-from tarefas import criar_areas_interativas, detectar_area_interativa, desenhar_area_interativa, lidar_com_teclas_area
+from tarefas import criar_areas_interativas, detectar_area_interativa, desenhar_area_interativa, lidar_com_teclas_area, criar_areas_interativas_Quintal,lidar_com_teclas_area_Quintal,desenhar_area_interativa_Quintal,esta_perto_tile_Quintal,detectar_area_interativa_Quintal
 from mapa import Mapa, carregar_Menu
 from personagem import carregar_sprites, mover_personagem
 from interface import Exibir_Menu, desenhar_pontuacao
@@ -49,20 +49,35 @@ Iniciar = Exibir_Menu(tela,menu_img)
 if Iniciar == "Jogar":
     
     while rodando:
+
+
+        
+        
         area_atual = detectar_area_interativa((personagem_x, personagem_y), areas)  # MOVER PRA CÁ
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 rodando = False
-            elif evento.type == pygame.KEYDOWN:
-                if evento.key == pygame.K_e:
-                    if mensagem_ativa:
-                        mensagem_ativa = False  # Fecha a mensagem
-                    elif area_atual:
-                        Pontuacao, nova_mensagem = lidar_com_teclas_area(evento, area_atual, estado_task, Pontuacao)
-                        if nova_mensagem:
-                            mensagem_ativa = True
-                            mensagem_texto = nova_mensagem
+            if game_map.mapa_atual == "casa":
+                if evento.type == pygame.KEYDOWN:
+                    if evento.key == pygame.K_e:
+                        if mensagem_ativa:
+                            mensagem_ativa = False  # Fecha a mensagem
+                        elif area_atual:
+                            Pontuacao, nova_mensagem = lidar_com_teclas_area(evento, area_atual, estado_task, Pontuacao)
+                            if nova_mensagem:
+                                mensagem_ativa = True
+                                mensagem_texto = nova_mensagem
+            elif game_map.mapa_atual == "quintal":
+                if evento.type == pygame.KEYDOWN:
+                    if evento.key == pygame.K_e:
+                        if mensagem_ativa:
+                            mensagem_ativa = False  # Fecha a mensagem
+                        elif area_atual:
+                            Pontuacao, nova_mensagem = lidar_com_teclas_area_Quintal(evento, area_atual, estado_task, Pontuacao)
+                            if nova_mensagem:
+                                mensagem_ativa = True
+                                mensagem_texto = nova_mensagem
         
 
         teclas = pygame.key.get_pressed()
@@ -89,6 +104,7 @@ if Iniciar == "Jogar":
             
             game_map = Mapa(tipo_mapa="quintal")
             personagem_x, personagem_y = ENTRADA_QUINTAL_X, ENTRADA_QUINTAL_Y
+            areas = criar_areas_interativas_Quintal()
             
         # Lógica de Transição: Quintal para Casa
         # Tentei usar um elif para não abrir outro if, mas deu erro e o jeito foi crirar as duas lógicas em ifs diferentes.
@@ -103,6 +119,7 @@ if Iniciar == "Jogar":
             
             game_map = Mapa(tipo_mapa="casa")
             personagem_x, personagem_y = ENTRADA_CASA_X, ENTRADA_CASA_Y
+            areas = criar_areas_interativas()
             
         game_map.draw(tela)
 
@@ -116,8 +133,13 @@ if Iniciar == "Jogar":
         desenhar_pontuacao(tela, Pontuacao, posicao=(50, 50))
         
         # Função para detectar de o personagem está perto de uma task
+        if  game_map.mapa_atual == "casa":
 
-        area_atual = detectar_area_interativa((personagem_x, personagem_y), areas)
+            area_atual = detectar_area_interativa((personagem_x, personagem_y), areas)
+
+        elif  game_map.mapa_atual == "quintal":
+
+            area_atual = detectar_area_interativa_Quintal((personagem_x, personagem_y), areas)
 
 # Atualiza opções se estiver perto de uma área nova
         if area_atual and area_atual["tipo"] == "task":
@@ -125,15 +147,27 @@ if Iniciar == "Jogar":
 
 # Desenho da área interativa das tasks
         if area_atual and not mensagem_ativa:
-            Pontuacao, nova_mensagem = desenhar_area_interativa(tela, fonte, area_atual, estado_task, (personagem_x, personagem_y), Pontuacao)
-            if nova_mensagem:
-                mensagem_ativa = True
-                mensagem_texto = nova_mensagem
-                estado_task["ativa"] = False
-                estado_task["tempo_inicial"] = None
-                estado_task["atual"] = None
-                estado_task["index"] = 0
-                estado_task["opcoes"] = list(area_atual["tasks"].keys())
+            if game_map.mapa_atual == "casa":
+                Pontuacao, nova_mensagem = desenhar_area_interativa(tela, fonte, area_atual, estado_task, (personagem_x, personagem_y), Pontuacao)
+                if nova_mensagem:
+                    mensagem_ativa = True
+                    mensagem_texto = nova_mensagem
+                    estado_task["ativa"] = False
+                    estado_task["tempo_inicial"] = None
+                    estado_task["atual"] = None
+                    estado_task["index"] = 0
+                    estado_task["opcoes"] = list(area_atual["tasks"].keys())
+            elif game_map.mapa_atual == "quintal":
+                Pontuacao, nova_mensagem = desenhar_area_interativa_Quintal(tela, fonte, area_atual, estado_task, (personagem_x, personagem_y), Pontuacao)
+                if nova_mensagem:
+                    mensagem_ativa = True
+                    mensagem_texto = nova_mensagem
+                    estado_task["ativa"] = False
+                    estado_task["tempo_inicial"] = None
+                    estado_task["atual"] = None
+                    estado_task["index"] = 0
+                    estado_task["opcoes"] = list(area_atual["tasks"].keys())
+
 
         
         pygame.display.update()
