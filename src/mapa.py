@@ -45,12 +45,23 @@ class Mapa:
             self.areas_livres += [(x, y) for y in range(8, 10) for x in range(1, 21)] # corredor quartos, 
             self.areas_livres += [(x, y) for y in range(8, 9) for x in range(0, 3)] # porta quintal
             self.areas_livres += [(x, y) for y in range(8, 12) for x in range(21, 31)] #corredor cozinha,sala
+            self.areas_livres += [(x, y) for y in range(5, 10) for x in range(26, 31)] #porta sala
+            self.areas_livres += [(x, y) for y in range(1, 6) for x in range(21, 39)] #sala
+            self.areas_livres += [(x, y) for y in range(9, 10) for x in range(29, 34)] #porta banheiro
+            self.areas_livres += [(x, y) for y in range(8, 12) for x in range(32, 39)] #banheiro
             self.areas_livres += [(x, y) for y in range(11, 14) for x in range(25, 27)] #porta cozinha
             self.areas_livres += [(x, y) for y in range(14, 20) for x in range(21, 39)] #cozinha 
             self.areas_livres += [(x, y) for y in range(9, 12) for x in range(13, 15)]  #porta quart filho
             self.areas_livres += [(x, y) for y in range(12, 21) for x in range(1, 19)] #quarto
 
             self.areas_interativas["mesa"] = [(x, y) for y in range(15, 18) for x in range(27, 33)]
+            self.areas_interativas["sofa_sala"] = [(x, y) for y in range(1, 3) for x in range(26, 35)]
+            self.areas_interativas["mesa_sala"] = [(x, y) for y in range(4, 5) for x in range(28, 33)]
+            self.areas_interativas["pia_banheiro"] = [(x, y) for y in range(10, 12) for x in range(32, 33)]
+            self.areas_interativas["privada"] = [(x, y) for y in range(11, 12) for x in range(37, 39)]
+            self.areas_interativas["porta1_banheiro"] = [(x, y) for y in range(10, 11) for x in range(36, 39)]
+            self.areas_interativas["porta2_banheiro"] = [(x, y) for y in range(8, 9) for x in range(35, 36)]
+            self.areas_interativas["chuveiro"] = [(x, y) for y in range(8, 9) for x in range(38, 39)]
             self.areas_interativas["comoda"] = [(x, y) for y in range(0, 0) for x in range(0, 0)]
             self.areas_interativas["guarda_roupa_pais"] = [(x, y) for y in range(1, 4) for x in range (13,18)]
             self.areas_interativas["geladeira"] = [(x, y) for y in range(14, 16) for x in range(37, 39)]
@@ -88,6 +99,28 @@ class Mapa:
             for tile in self.areas_interativas["geladeira"]:
                 if tile in temp_passable_set:
                     temp_passable_set.remove(tile)
+            for tile in self.areas_interativas["sofa_sala"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+            for tile in self.areas_interativas["mesa_sala"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+            for tile in self.areas_interativas["pia_banheiro"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+            for tile in self.areas_interativas["privada"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+            for tile in self.areas_interativas["porta1_banheiro"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+            for tile in self.areas_interativas["porta2_banheiro"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+            for tile in self.areas_interativas["chuveiro"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+
             self.areas_livres = list(temp_passable_set)
 
         elif tipo_mapa == "quintal":
@@ -96,10 +129,30 @@ class Mapa:
             self.areas_livres = []
             self.areas_interativas = {}
 
-            # Todo o quintal é livre (passável) por enquanto
-            self.areas_livres += [(x, y) for x in range(0, COLS) for y in range(0, ROWS)]
-            # Definindo a nova "porta de saída" do quintal
-            self.areas_interativas["porta_quintal_saida"] = [(x, y) for x in range(39, 42) for y in range(7, 11)]
+            self.areas_livres += [(x, y) for y in range(0, 21) for x in range(0, 39)] # quital
+            self.areas_livres += [(x, y) for y in range(7, 9) for x in range(39, 40)] # porta quital
+
+            self.areas_interativas["porta_quintal_saida"] = [(x, y) for x in range(39, 40) for y in range(7, 9)]
+            self.areas_interativas["horta"] = [(x, y) for x in range(17, 39) for y in range(0, 2)] 
+            self.areas_interativas["pets"] = [(x, y) for x in range(2, 8) for y in range(8,10)] 
+            self.areas_interativas["carro_um"] = [(x, y) for x in range(7, 16) for y in range(16, 19)] 
+            self.areas_interativas["carro_dois"] = [(x, y) for x in range(24, 33) for y in range(16, 19)] 
+
+            temp_passable_set = set(self.areas_livres)
+            for tile in self.areas_interativas["horta"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+            for tile in self.areas_interativas["pets"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+            for tile in self.areas_interativas["carro_um"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+            for tile in self.areas_interativas["carro_dois"]:
+                if tile in temp_passable_set:
+                    temp_passable_set.remove(tile)
+
+            self.areas_livres = list(temp_passable_set)
 
         elif tipo_mapa == "menu":
             self.background_img = self._carregar_imagem_interna(CAMINHO_MENU)
@@ -129,7 +182,7 @@ class Mapa:
             return False
         target_tiles = self.areas_interativas[area_name]
         for tx, ty in target_tiles:
-            if abs(tx - player_tile_x) <= radius and abs <= radius:
+            if abs(tx - player_tile_x) <= radius and abs(ty - player_tile_y) <= radius:
                 return True
         return False
 
