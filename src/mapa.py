@@ -131,7 +131,9 @@ class Mapa:
 
             self.areas_livres += [(x, y) for y in range(0, 21) for x in range(0, 39)] # quital
             self.areas_livres += [(x, y) for y in range(7, 9) for x in range(39, 40)] # porta quital
+            self.areas_livres += [(x, y) for y in range(0, 3) for x in range(3, 14)] #AreaBonus
 
+            self.areas_interativas["area_bonus"] = [(x, y) for y in range(0, 3) for x in range(3, 14)]
             self.areas_interativas["porta_quintal_saida"] = [(x, y) for x in range(39, 40) for y in range(7, 9)]
             self.areas_interativas["horta"] = [(x, y) for x in range(17, 39) for y in range(0, 2)] 
             self.areas_interativas["pets"] = [(x, y) for x in range(2, 8) for y in range(8,10)] 
@@ -151,7 +153,10 @@ class Mapa:
             for tile in self.areas_interativas["carro_dois"]:
                 if tile in temp_passable_set:
                     temp_passable_set.remove(tile)
-
+            #for tile in self.areas_interativas["area_bonus"]:
+                #if tile in temp_passable_set:
+                    #temp_passable_set.remove(tile)
+            #Teste da área Bônus, para saber se estava definivamente correto os tiles marcados.
             self.areas_livres = list(temp_passable_set)
 
         elif tipo_mapa == "menu":

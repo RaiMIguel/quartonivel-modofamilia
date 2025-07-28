@@ -29,8 +29,8 @@ def criar_areas_interativas():
         {
             "nome": "Computador",
             "tiles": Computador_tiles,
-            "tipo": "recompensa",
-            "recompensas": [("1h de tecnologia", 10), ("Saída misteriosa", 100)]
+            "tipo": "task",
+            "tasks": {"Estudar": 20}
         },
          {
             "nome": "Fogao",
@@ -145,6 +145,7 @@ def criar_areas_interativas_Quintal():
     Carro_tiles =  [(x, y) for x in range(7, 16) for y in range(16, 19)] 
 
     Carro2_tiles =  [(x, y) for x in range(24, 33) for y in range(16, 19)]
+    Area_Bonus_tiles = [(x, y) for y in range(0, 3) for x in range(3, 14)]
     
 
     return [
@@ -171,6 +172,12 @@ def criar_areas_interativas_Quintal():
             "tiles": Carro2_tiles,
             "tipo": "task",
             "tasks": {"Clonar Placa": 1000}
+        },
+        {
+            "nome": "Area Bonus",
+            "tiles": Area_Bonus_tiles,
+            "tipo": "recompensa",
+            "recompensas": [("1h de tecnologia", 10), ("Saída misteriosa", 100)]
         },
     ]
 
@@ -218,6 +225,7 @@ def desenhar_area_interativa_Quintal(tela, fonte, area, estado_task, personagem_
     pos_y = pos_tile[1] * TILE_SIZE
 
     if area["tipo"] == "task":
+        estado_task["index"] = 0
         if not estado_task["ativa"]:
             for i, nome in enumerate(estado_task["opcoes"]):
                 texto = nome.capitalize()
