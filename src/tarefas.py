@@ -102,6 +102,7 @@ def desenhar_area_interativa(tela, fonte, area, estado_task, personagem_pos, Pon
     pos_y = pos_tile[1] * TILE_SIZE
 
     if area["tipo"] == "task":
+        estado_task["index"] = 0
         if not estado_task["ativa"]:
             for i, nome in enumerate(estado_task["opcoes"]):
                 texto = nome.capitalize()
